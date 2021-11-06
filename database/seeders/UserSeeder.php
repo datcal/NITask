@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
                 'id' => $line[0],
                 'name' => $line[1],
                 'email' => $line[2],
-                'password' => '102030', #TODO: password hash Hash::make('102030')
+                'password' => Hash::make('102030'),
                 'remember_token' => Str::random(10),
                 'email_verified_at' => now(),
             ]);
