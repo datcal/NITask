@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,12 +16,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/auth', [AuthenticationController::class,'auth']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/products',[ProductController::class,'index']);
+    Route::get('/user',[UserController::class,'index']);
+    Route::get('/user/products',[UserController::class,'product']);
+    Route::post('/user/products',[OrderController::class,'store']);
+    Route::delete('/user/products/{SKU}',[OrderController::class,'destroy']);
 });
 
-Route::get('/products',[ProductController::class,'index']);
-Route::get('/user',[UserController::class,'index']);
-Route::get('/user/products',[UserController::class,'product']);
-Route::post('/user/products',[UserController::class,'store']);
-Route::delete('/user/products/{SKU}',[UserController::class,'destroy']);
+
+
