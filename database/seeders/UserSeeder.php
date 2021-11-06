@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
                 'id' => $line[0],
                 'name' => $line[1],
                 'email' => $line[2],
-                'password' => '102030', # Hash::make('102030'),
+                'password' => '102030', #TODO: password hash Hash::make('102030')
                 'remember_token' => Str::random(10),
                 'email_verified_at' => now(),
             ]);

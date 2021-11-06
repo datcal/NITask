@@ -10,4 +10,7 @@ class Product extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public static $PRODUCT_ALL_CACHE = 'product:all';
+
 }
