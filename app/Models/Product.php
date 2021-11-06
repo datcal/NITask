@@ -11,6 +11,6 @@ class Product extends Model
 
     public $timestamps = false;
 
-    public static $PRODUCT_ALL_CACHE = 'product:all';
+    public static $PRODUCT_ALL_CACHE_NAME = 'product:all';
 
 }
