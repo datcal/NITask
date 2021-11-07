@@ -14,9 +14,27 @@ docker-compose build
 docker-compose up -d
 ```
 
-## Configuring Database
-Run migration and seeders
+Install composer packages
+```bash
+docker-compose run --rm app composer install
+```
 
+copy .env.example to .env file and generate app key
+```bash
+cp .env.example .env
+docker-compose run --rm app artisan key:generate
+```
+
+## Configuring Database
+First edit .env file 
+```
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=nitemp
+DB_USERNAME=nitempuser
+DB_PASSWORD=secret
+```
+Run migration and seeders
 ```bash
 docker-compose run --rm app php artisan migrate --seed
 ```
@@ -35,12 +53,12 @@ docker-compose run --rm app php artisan test
 ```
 
 # Auth
-| Route | HTTP Verb	 | POST body	 |Header	 | Description	 |
+| Route | HTTP Verb	 | Body	 |Header	 | Description	 |
 | --- | --- | --- | --- | --- |
 | /auth | `POST` | {'email':'foo@bar.com','password':'password'} |  | Get user token |
 
 # User
-| Route | HTTP Verb	 | POST body |Header	 | Description	 |
+| Route | HTTP Verb	 | Body |Header	 | Description	 |
 | --- | --- | --- | --- | --- |
 | /user | `GET` | Empty | Authorization:Bearer token | Get current user data. |
 | /user/product | `GET` | Empty | Authorization:Bearer token| Get users orders. |
