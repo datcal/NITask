@@ -4,10 +4,18 @@ namespace App\Repositories;
 
 use App\Models\Order;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class UserRepository{
+
+    private $cacheRepository;
+
+    /**
+     * @param CacheRepository $cacheRepository
+     */
+    public function __construct(CacheRepository $cacheRepository){
+        $this->cacheRepository = $cacheRepository;
+    }
 
     /**
      * @param User $user
@@ -55,6 +63,8 @@ class UserRepository{
             'user_id' => $user_id,
             'product_sku' =>$sku
         ]);
+
+        $this->cacheRepository->forget_cache(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $user_id));
     }
 
     /**
@@ -63,6 +73,12 @@ class UserRepository{
      * @return int
      */
     public function delete_order(int $user_id, string $sku) : int{
-        return Order::where('product_sku', $sku)->where('user_id', $user_id)->delete();
+        $orderStatus = Order::where('product_sku', $sku)->where('user_id', $user_id)->delete();
+
+        if($orderStatus){
+            $this->cacheRepository->forget_cache(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $user_id));
+        }
+
+        return $orderStatus;
     }
 }
