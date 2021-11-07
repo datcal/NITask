@@ -76,6 +76,8 @@ class UserTest extends TestCase
         $response->assertStatus(201);
     }
 
+
+
     /**
      * delete order from user.
      *
@@ -85,8 +87,42 @@ class UserTest extends TestCase
     {
         $response = $this->withHeaders([
             'Authorization' => 'Bearer $this->token',
+        ])->post('/api/user/products',[
+            'sku' => 'massive'
+        ]);
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer $this->token',
         ])->delete('/api/user/products/massive');
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
+    }
+
+    /**
+     * delete order without sku from user.
+     *
+     * @return void
+     */
+    public function test_delete_order_without_sku_from_user()
+    {
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer $this->token',
+        ])->delete('/api/user/products/');
+
+        $response->assertStatus(405);
+    }
+
+    /**
+     * delete order wrong sku from user.
+     *
+     * @return void
+     */
+    public function test_delete_order_wrong_sku_from_user()
+    {
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer $this->token',
+        ])->delete('/api/user/products/test-123');
+
+        $response->assertStatus(404);
     }
 }
