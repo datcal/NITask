@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,10 +15,10 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  OrderStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderStoreRequest $request)
     {
         $order = new Order;
         $order->user_id = $request->user()->id;
@@ -34,10 +35,14 @@ class OrderController extends Controller
      * @param  string  $sku
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request ,$sku)
+    public function destroy(Request $request,$sku)
     {
-        Order::where('product_sku', $sku)->where('user_id', $request->user()->id)->delete();
-        Cache::forget(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id));
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        if(Order::where('product_sku', $sku)->where('user_id', $request->user()->id)->delete()){
+            Cache::forget(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id));
+            return response()->json(null, Response::HTTP_OK);
+        }
+
+        return response()->json(null, Response::HTTP_NOT_FOUND);
+
     }
 }

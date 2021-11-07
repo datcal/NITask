@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 class UserRepository{
 
     public function user(Request $request){
-        $cacheName = sprintf('%s%s',User::$USER_CACHE_NAME,$request->user()->id);
+        $cacheName = sprintf('%s%s', User::$USER_CACHE_NAME, $request->user()->id);
 
         $user = Cache::rememberForever($cacheName,function () use($request) {
             return $request->user();
@@ -24,9 +24,9 @@ class UserRepository{
 
     public function order(Request $request){
 
-        $cacheName = sprintf('%s%s',User::$USER_ORDER_CACHE_NAME,$request->user()->id);
+        $cacheName = sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id);
 
-        $orders = Cache::rememberForever($cacheName,function () use($request) {
+        $orders = Cache::rememberForever($cacheName, function () use($request) {
             return $request->user()->orders();
         });
 

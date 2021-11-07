@@ -13,7 +13,7 @@ class OrderStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class OrderStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'sku' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'sku.required' => 'SKU is required',
         ];
     }
 }
