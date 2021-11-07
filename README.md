@@ -44,6 +44,7 @@ docker-compose run --rm app php artisan migrate --seed
 Run migration and seeders for testing
 
 ```bash
+touch database/database.sqlite
 docker-compose run --rm app php artisan migrate --seed --env=testing
 ```
 
