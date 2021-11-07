@@ -13,7 +13,7 @@ class ProductRepository{
         });
 
         if(!$products){
-            return array('');
+            return array();
         }
 
         return $products;

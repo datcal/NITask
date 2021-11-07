@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Repositories\ProductRepository;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -15,6 +16,8 @@ class ProductController extends Controller
     }
 
     public function index(){
-        return ProductResource::collection($this->productRepository->all());
+        return response()->json(
+            ProductResource::collection($this->productRepository->all())
+            , Response::HTTP_OK);
     }
 }
