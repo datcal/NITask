@@ -33,13 +33,12 @@ class ProductTest extends TestCase
     }
 
     /**
-     * A basic test example.
+     * get all products
      *
      * @return void
      */
     public function test_all_products()
     {
-
         $response = $this->withHeaders([
             'Authorization' => 'Bearer $this->token',
         ])->get('/api/products');
