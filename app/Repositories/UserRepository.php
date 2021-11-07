@@ -2,32 +2,41 @@
 
 namespace App\Repositories;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class UserRepository{
 
-    public function user(Request $request){
-        $cacheName = sprintf('%s%s', User::$USER_CACHE_NAME, $request->user()->id);
+    /**
+     * @param User $user
+     * @return array|mixed
+     */
+    public function get_user(User $user){
+        $cacheName = sprintf('%s%s', User::$USER_CACHE_NAME, $user->id);
 
-        $user = Cache::rememberForever($cacheName,function () use($request) {
-            return $request->user();
+        $data = Cache::rememberForever($cacheName,function () use($user) {
+            return $user;
         });
 
-        if(!$user){
+        if(!$data){
             return array();
         }
 
-        return $user;
+        return $data;
     }
 
-    public function order(Request $request){
+    /**
+     * @param User $user
+     * @return array|mixed
+     */
+    public function list_order(User $user){
 
-        $cacheName = sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id);
+        $cacheName = sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $user->id);
 
-        $orders = Cache::rememberForever($cacheName, function () use($request) {
-            return $request->user()->orders();
+        $orders = Cache::rememberForever($cacheName, function () use($user) {
+            return $user->orders();
         });
 
         if(!$orders){
@@ -35,5 +44,25 @@ class UserRepository{
         }
 
         return $orders;
+    }
+
+    /**
+     * @param int $user_id
+     * @param string $sku
+     */
+    public function create_order(int $user_id, string $sku) : void{
+        Order::create([
+            'user_id' => $user_id,
+            'product_sku' =>$sku
+        ]);
+    }
+
+    /**
+     * @param int $user_id
+     * @param string $sku
+     * @return int
+     */
+    public function delete_order(int $user_id, string $sku) : int{
+        return Order::where('product_sku', $sku)->where('user_id', $user_id)->delete();
     }
 }

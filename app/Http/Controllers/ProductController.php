@@ -15,9 +15,12 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
 
-    public function index(){
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list_product(){
         return response()->json(
-            ProductResource::collection($this->productRepository->all())
+            ProductResource::collection($this->productRepository->list_product())
             , Response::HTTP_OK);
     }
 }

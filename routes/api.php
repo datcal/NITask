@@ -19,11 +19,11 @@ use App\Http\Controllers\OrderController;
 Route::post('/auth', [AuthenticationController::class,'auth']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/products',[ProductController::class,'index']);
-    Route::get('/user',[UserController::class,'index']);
-    Route::get('/user/products',[UserController::class,'product']);
-    Route::post('/user/products',[OrderController::class,'store']);
-    Route::delete('/user/products/{SKU}',[OrderController::class,'destroy']);
+    Route::get('/products',[ProductController::class,'list_product']);
+    Route::get('/user',[UserController::class,'get_user']);
+    Route::get('/user/products',[UserController::class,'list_product']);
+    Route::post('/user/products',[UserController::class,'add_order']);
+    Route::delete('/user/products/{SKU}',[UserController::class,'delete_order']);
 });
 
 

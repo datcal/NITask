@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Cache;
 
 class ProductRepository{
 
-    public function all(){
+    /**
+     * Get whole products.
+     * @return array|mixed
+     */
+    public function list_product(){
         $products = Cache::rememberForever(Product::$PRODUCT_ALL_CACHE_NAME,function () {
             return Product::all();
         });
