@@ -14,6 +14,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static $USER_CACHE_NAME = 'user:';
+    public static $USER_ORDER_CACHE_NAME = 'user:order:';
+
     /**
      * The attributes that are mass assignable.
      *
