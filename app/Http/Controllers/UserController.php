@@ -4,32 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserOrderResource;
 use App\Http\Resources\UserResource;
-use App\Models\Order;
-use App\Models\Product;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
-     * Display a listing of the resource.
+     * Display data of the user.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
+        $user = $this->userRepository->user($request);
         return response()->json(
-            new UserResource($request->user())
-        , 200);
+            new UserResource($user)
+        , Response::HTTP_OK);
     }
 
     /**
      * Display all orders of the user
+     *
+     * @return \Illuminate\Http\Response
      */
     public function product(Request $request){
+        $orders = $this->userRepository->order($request);
         return response()->json(
-            UserOrderResource::collection($request->user()->orders())
-            , 200);
+            UserOrderResource::collection($orders)
+            , Response::HTTP_OK);
     }
 
 
