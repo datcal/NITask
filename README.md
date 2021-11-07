@@ -22,7 +22,7 @@ docker-compose run --rm app composer install
 copy .env.example to .env file and generate app key
 ```bash
 cp .env.example .env
-docker-compose run --rm app artisan key:generate
+docker-compose run --rm app php artisan key:generate
 ```
 
 ## Configuring Database
