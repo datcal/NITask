@@ -33,12 +33,12 @@ class AuthRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email required',
-            'email.string' => 'Email string',
-            'email.email' => 'Email email',
-            'password.required' => 'Password required',
-            'password.string' => 'Password string',
-            'password.min' => 'Password min'
+            'email.required' => 'Email is required',
+            'email.string' => 'Email must be string',
+            'email.email' => 'Please enter valid email ',
+            'password.required' => 'Password is required',
+            'password.string' => 'Password must be string',
+            'password.min' => 'Password must be a minimum of 6 characters.'
         ];
     }
 }
