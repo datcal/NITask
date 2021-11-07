@@ -73,7 +73,7 @@ class UserTest extends TestCase
             'sku' => 'massive'
         ]);
 
-        $response->assertStatus(204);
+        $response->assertStatus(201);
     }
 
     /**

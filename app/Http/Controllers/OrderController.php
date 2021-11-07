@@ -23,8 +23,8 @@ class OrderController extends Controller
         $order->user_id = $request->user()->id;
         $order->product_sku = $request->sku;
         $order->save();
-        Cache::forget(sprintf('%s%s',User::$USER_ORDER_CACHE_NAME,$request->user()->id));
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        Cache::forget(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id));
+        return response()->json(null, Response::HTTP_CREATED);
     }
 
     /**
@@ -36,8 +36,8 @@ class OrderController extends Controller
      */
     public function destroy(Request $request ,$sku)
     {
-        Order::where('product_sku', $sku)->where('user_id',$request->user()->id)->delete();
-        Cache::forget(sprintf('%s%s',User::$USER_ORDER_CACHE_NAME,$request->user()->id));
+        Order::where('product_sku', $sku)->where('user_id', $request->user()->id)->delete();
+        Cache::forget(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $request->user()->id));
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
