@@ -10,16 +10,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProductTest extends TestCase
 {
-   // use RefreshDatabase;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_all_products()
+    use RefreshDatabase;
+    protected $token;
+    public function setUp(): void
     {
-
-        //$this->seed();
+        parent::setUp();
+        $this->seed();
 
         $user = User::factory()->create([
             'password' => bcrypt('password'),
@@ -33,12 +29,19 @@ class ProductTest extends TestCase
             ]
         );
 
-        $response->assertStatus(200);
+        $this->token = $response->getData()->token;
+    }
 
-        $token = $response->getData()->token;
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function test_all_products()
+    {
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer $token',
+            'Authorization' => 'Bearer $this->token',
         ])->get('/api/products');
 
         $response->assertStatus(200);
