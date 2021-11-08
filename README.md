@@ -30,14 +30,6 @@ docker-compose run --rm app php artisan key:generate
 
 Configuring Database
 ------
-First edit .env file 
-```
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=nitemp
-DB_USERNAME=nitempuser
-DB_PASSWORD=secret
-```
 Run migration and seeders
 ```bash
 docker-compose run --rm app php artisan migrate --seed
