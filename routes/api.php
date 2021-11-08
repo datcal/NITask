@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/products',[ProductController::class,'listProduct']);
     Route::get('/user',[UserController::class,'getUser']);
     Route::get('/user/products',[UserController::class,'listProduct']);
-    Route::post('/user/products',[UserController::class,'addOrder']);
+    Route::post('/user/products',[UserController::class,'createOrder']);
     Route::delete('/user/products/{SKU}',[UserController::class,'deleteOrder']);
 });
 

@@ -32,7 +32,6 @@ class UserRepository{
      * @return array|mixed
      */
     public function listOrder(User $user){
-
         $cacheName = sprintf('%s%s', User::USER_ORDER_CACHE_NAME, $user->id);
 
         $orders = Cache::rememberForever($cacheName, function () use($user) {
@@ -51,7 +50,6 @@ class UserRepository{
      * @param string $sku
      */
     public function createOrder(int $user_id, string $sku){
-
         try {
             $order = Order::create([
                 'user_id' => $user_id,
