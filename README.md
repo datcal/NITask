@@ -1,12 +1,15 @@
 # NI Task API
 
-## Steps
+
+Steps
+------
 - [Set up](#set-up)
 - [Configuring Database](#configuring-database)
 - [Configuring Test Process And Run Test](#configuring-test-process-and-run-test)
 
 
-## Set up
+Set up
+------
 First, build docker container and run:
 
 ```bash
@@ -25,7 +28,8 @@ cp .env.example .env
 docker-compose run --rm app php artisan key:generate
 ```
 
-## Configuring Database
+Configuring Database
+------
 First edit .env file 
 ```
 DB_HOST=db
@@ -40,11 +44,15 @@ docker-compose run --rm app php artisan migrate --seed
 ```
 
 
-## Configuring Test Process And Run Test
-Run migration and seeders for testing
-
+Configuring Test Process And Run Test
+------
+First, create sqlite database
 ```bash
 touch database/database.sqlite
+```
+
+Run migration and seeders for testing
+```bash
 docker-compose run --rm app php artisan migrate --seed --env=testing
 ```
 
@@ -53,7 +61,20 @@ Run tests
 docker-compose run --rm app php artisan test 
 ```
 
+How to use the API
+------
+API requests must include _api_. For example the root of the API is at _/api_.
+
+__Valid API request__
+```
+curl -H "Accept: application/json" 'http://localhost/api/products'
+```
+>You can use  [Postman collection](https://raw.githubusercontent.com/datcal/NITask/main/NITask.postman_collection.json "NITask Postman Collection") for testing.
+
+
+
 # Auth
+
 | Route | HTTP Verb	 | Body	 |Header	 | Description	 |
 | --- | --- | --- | --- | --- |
 | /auth | `POST` | {'email':'foo@bar.com','password':'password'} |  | Get user token |
@@ -72,3 +93,10 @@ docker-compose run --rm app php artisan test
 | /products | `GET` | Empty  | Authorization:Bearer token | Get all products. |
 
 
+
+Personal Notes
+------
+If a user places an order for the same item multiple times and wants to cancel only one of these items, 
+this is not possible using the current structure. 
+My suggestion would be to create a unique key for each one of the orders and for each item in those orders,
+and carry out all communications through this key.
