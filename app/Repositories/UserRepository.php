@@ -14,7 +14,7 @@ class UserRepository{
      * @return array|mixed
      */
     public function getUser(User $user){
-        $cacheName = sprintf('%s%s', User::$USER_CACHE_NAME, $user->id);
+        $cacheName = sprintf('%s%s', User::USER_CACHE_NAME, $user->id);
 
         $data = Cache::rememberForever($cacheName,function () use($user) {
             return $user;
@@ -33,7 +33,7 @@ class UserRepository{
      */
     public function listOrder(User $user){
 
-        $cacheName = sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $user->id);
+        $cacheName = sprintf('%s%s', User::USER_ORDER_CACHE_NAME, $user->id);
 
         $orders = Cache::rememberForever($cacheName, function () use($user) {
             return $user->orders();
@@ -83,6 +83,6 @@ class UserRepository{
      * @param int $user_id
      */
     public function orderCacheForget(int $user_id){
-        Cache::forget(sprintf('%s%s', User::$USER_ORDER_CACHE_NAME, $user_id));
+        Cache::forget(sprintf('%s%s', User::USER_ORDER_CACHE_NAME, $user_id));
     }
 }

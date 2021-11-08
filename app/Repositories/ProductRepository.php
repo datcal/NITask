@@ -12,7 +12,7 @@ class ProductRepository{
      * @return array|mixed
      */
     public function listProduct(){
-        $products = Cache::rememberForever(Product::$PRODUCT_ALL_CACHE_NAME,function () {
+        $products = Cache::rememberForever(Product::PRODUCT_ALL_CACHE_NAME,function () {
             return Product::all();
         });
 
