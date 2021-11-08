@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 
 Route::post('/auth', [AuthenticationController::class,'auth']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum','log.route']], function () {
     Route::get('/products',[ProductController::class,'listProduct']);
     Route::get('/user',[UserController::class,'getUser']);
     Route::get('/user/products',[UserController::class,'listProduct']);
