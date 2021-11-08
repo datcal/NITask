@@ -10,6 +10,8 @@ use Illuminate\Database\QueryException;
 class UserRepository{
 
     /**
+     * Get user data.
+     *
      * @param User $user
      * @return array|mixed
      */
@@ -28,6 +30,8 @@ class UserRepository{
     }
 
     /**
+     * Get users' orders
+     *
      * @param User $user
      * @return array|mixed
      */
@@ -46,6 +50,8 @@ class UserRepository{
     }
 
     /**
+     * Create order.
+     *
      * @param int $user_id
      * @param string $sku
      */
@@ -63,6 +69,8 @@ class UserRepository{
     }
 
     /**
+     * Delete order.
+     *
      * @param int $user_id
      * @param string $sku
      * @return int
@@ -78,6 +86,8 @@ class UserRepository{
     }
 
     /**
+     * Delete order cache.
+     *
      * @param int $user_id
      */
     public function orderCacheForget(int $user_id){

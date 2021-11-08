@@ -9,6 +9,7 @@ class ProductRepository{
 
     /**
      * Get whole products.
+     *
      * @return array|mixed
      */
     public function listProduct(){

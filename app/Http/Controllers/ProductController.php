@@ -16,6 +16,8 @@ class ProductController extends Controller
     }
 
     /**
+     * Get all products.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function listProduct(){

@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display all orders of the user
+     * Display all orders of the user.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -41,6 +41,8 @@ class UserController extends Controller
     }
 
     /**
+     * Create new order.
+     *
      * @param OrderStoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -52,6 +54,8 @@ class UserController extends Controller
     }
 
     /**
+     * Delete order with sku.
+     *
      * @param Request $request
      * @param $sku
      * @return \Illuminate\Http\JsonResponse
