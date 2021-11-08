@@ -47,7 +47,7 @@ services:
       MYSQL_PASSWORD: 'secret'
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
-      - dbdata:/var/lib/mysql/
+      - nitaskbhdbdata:/var/lib/mysql/
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
@@ -59,7 +59,7 @@ services:
       ports:
           - '6379:6379'
       volumes:
-          - 'redisdata:/data'
+          - 'nitaskbhredisdata:/data'
       networks:
           - app-network
       healthcheck:
@@ -85,7 +85,7 @@ networks:
 
 #Volumes
 volumes:
-  dbdata:
+  nitaskbhdbdata:
     driver: local
-  redisdata:
+  nitaskbhredisdata:
     driver: local
