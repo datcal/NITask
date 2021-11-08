@@ -18,9 +18,9 @@ class ProductController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list_product(){
+    public function listProduct(){
         return response()->json(
-            ProductResource::collection($this->productRepository->list_product())
+            ProductResource::collection($this->productRepository->listProduct())
             , Response::HTTP_OK);
     }
 }

@@ -11,7 +11,7 @@ class ProductRepository{
      * Get whole products.
      * @return array|mixed
      */
-    public function list_product(){
+    public function listProduct(){
         $products = Cache::rememberForever(Product::$PRODUCT_ALL_CACHE_NAME,function () {
             return Product::all();
         });

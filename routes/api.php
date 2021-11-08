@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,11 +18,11 @@ use App\Http\Controllers\OrderController;
 Route::post('/auth', [AuthenticationController::class,'auth']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/products',[ProductController::class,'list_product']);
-    Route::get('/user',[UserController::class,'get_user']);
-    Route::get('/user/products',[UserController::class,'list_product']);
-    Route::post('/user/products',[UserController::class,'add_order']);
-    Route::delete('/user/products/{SKU}',[UserController::class,'delete_order']);
+    Route::get('/products',[ProductController::class,'listProduct']);
+    Route::get('/user',[UserController::class,'getUser']);
+    Route::get('/user/products',[UserController::class,'listProduct']);
+    Route::post('/user/products',[UserController::class,'addOrder']);
+    Route::delete('/user/products/{SKU}',[UserController::class,'deleteOrder']);
 });
 
 

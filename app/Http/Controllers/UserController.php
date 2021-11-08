@@ -25,8 +25,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get_user(Request $request){
-        $user = $this->userRepository->get_user($request->user());
+    public function getUser(Request $request){
+        $user = $this->userRepository->getUser($request->user());
         return response()->json(new UserResource($user), Response::HTTP_OK);
     }
 
@@ -35,8 +35,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list_product(Request $request){
-        $orders = $this->userRepository->list_order($request->user());
+    public function listProduct(Request $request){
+        $orders = $this->userRepository->listOrder($request->user());
         return response()->json(UserOrderResource::collection($orders), Response::HTTP_OK);
     }
 
@@ -44,9 +44,11 @@ class UserController extends Controller
      * @param OrderStoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function add_order(OrderStoreRequest $request){
-        $this->userRepository->create_order($request->user()->id,$request->sku);
-        return response()->json(null, Response::HTTP_CREATED);
+    public function createOrder(OrderStoreRequest $request){
+        if($this->userRepository->createOrder($request->user()->id,$request->sku)){
+            return response()->json(null, Response::HTTP_CREATED);
+        }
+        return response()->json(array('message'=>'Wrong sku','code'=>'1000'),Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -54,8 +56,8 @@ class UserController extends Controller
      * @param $sku
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete_order(Request $request, $sku){
-        if($this->userRepository->delete_order($request->user()->id, $sku)){
+    public function deleteOrder(Request $request, $sku){
+        if($this->userRepository->deleteOrder($request->user()->id, $sku)){
             return response()->json(null, Response::HTTP_OK);
         }
         return response()->json(null, Response::HTTP_NOT_FOUND);
