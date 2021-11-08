@@ -16,8 +16,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-
         $csvFile = fopen(base_path('database/csv/users.csv'), 'r');
         $firstLine = true;
         while(($line = fgetcsv($csvFile)) !== false) {

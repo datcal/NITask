@@ -14,8 +14,6 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::truncate();
-
         $csvFile = fopen(base_path('database/csv/products.csv'), 'r');
         $firstLine = true;
         while(($line = fgetcsv($csvFile)) !== false) {

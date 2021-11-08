@@ -14,8 +14,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        Order::truncate();
-
         $csvFile = fopen(base_path('database/csv/purchased.csv'), 'r');
         $firstLine = true;
         while(($line = fgetcsv($csvFile)) !== false) {
