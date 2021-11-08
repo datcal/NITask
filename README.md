@@ -5,7 +5,7 @@ Steps
 ------
 - [Set up](#set-up)
 - [Configuring Database](#configuring-database)
-- [Configuring Test Process And Run Test](#configuring-test-process-and-run-test)
+- [Configuring The Test Process and Running The Test](#configuring-the-test-process-and-running-the-test)
 
 
 Set up
@@ -44,7 +44,7 @@ docker-compose run --rm app php artisan migrate --seed
 ```
 
 
-Configuring Test Process And Run Test
+Configuring The Test Process and Running The Test
 ------
 First, create sqlite database
 ```bash
@@ -77,13 +77,13 @@ curl -H "Accept: application/json" 'http://localhost/api/products'
 
 | Route | HTTP Verb	 | Body	 |Header	 | Description	 |
 | --- | --- | --- | --- | --- |
-| /auth | `POST` | {'email':'foo@bar.com','password':'password'} |  | Get user token |
+| /auth | `POST` | {'email':'foo@bar.com','password':'password'} |  | Get user token. |
 
 # User
 | Route | HTTP Verb	 | Body |Header	 | Description	 |
 | --- | --- | --- | --- | --- |
 | /user | `GET` | Empty | Authorization:Bearer token | Get current user data. |
-| /user/product | `GET` | Empty | Authorization:Bearer token| Get users orders. |
+| /user/product | `GET` | Empty | Authorization:Bearer token| Get user's orders. |
 | /user/product | `POST` | {'sku' : 'traktor-pro-3'} | Authorization:Bearer token |Add new order to user. |
 | /user/product/:sku | `DELETE` | Empty | Authorization:Bearer token | Delete user's order with sku. |
 
